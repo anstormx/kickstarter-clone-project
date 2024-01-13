@@ -80,4 +80,17 @@
             recepientpayable.transfer(requests[index].value); //sends money to recepient
 
         }
+
+        function getsummary() public view returns (uint, uint, uint, uint, address) {
+            return(
+                mincontribution,
+                address(this).balance,
+                requests.length,
+                contributorscount,
+                manager
+            );
+        }
+        function getrequestscount() public view returns (uint) {
+            return requests.length;
+        }
     }
