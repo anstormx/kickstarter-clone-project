@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import Layout from "../../components/Layout";
 import campaign from "../../ethereum/campaign";
-import { Card, Grid } from 'semantic-ui-react';
+import { Card, Grid, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'; // Import Semantic UI CSS
 import web3 from "../../ethereum/web3";
 import Contributeform from "../../components/Contributeform";
+import { Link } from "../../routes";
 
 
 class CampaignShow extends Component {
@@ -72,12 +73,25 @@ class CampaignShow extends Component {
             <Layout> 
                 <div>
                     <Grid>
-                        <Grid.Column width={10}>
-                            {this.rendercard()} 
-                        </Grid.Column>
-                        <Grid.Column width={5}>
-                            <Contributeform address={this.props.address}/>
-                        </Grid.Column>
+                        <Grid.Row>
+                            <Grid.Column width={10}>
+                                {this.rendercard()} 
+                            </Grid.Column>
+                            <Grid.Column width={5}>
+                                <Contributeform address={this.props.address}/>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Link route={`/campaigns/${this.props.address}/requests`}>
+                                    <a>
+                                        <Button primary>
+                                            View Requests
+                                        </Button>
+                                    </a>
+                                </Link>
+                            </Grid.Column>
+                        </Grid.Row>
                     </Grid>
                 </div>
             </Layout> //code inside gets passed as children to Layout component
