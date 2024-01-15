@@ -4,21 +4,39 @@ import web3 from "../ethereum/web3";
 import campaign from "../ethereum/campaign";
 
 class Requestrow extends Component {
+  state = {
+    loading1: false,
+    loading2: false
+  };
+  
   onApprove = async () => {
     const instance = campaign(this.props.address);
-    const accounts = await web3.eth.getAccounts();
-    await instance.methods.approve_request(this.props.id).send({
+    this.setState({ loading1: true, errorMessage: "" });
+
+    try{
+      const accounts = await web3.eth.getAccounts();
+      await instance.methods.approve_request(this.props.id).send({
       from: accounts[0],
-    });
+      });
+    } catch (err) {
+        console.log(err);
+    }
+    this.setState({ loading1: false });
   };
 
   onFinalize = async () => {
     const instance = campaign(this.props.address);
-
-    const accounts = await web3.eth.getAccounts();
-    await instance.methods.finalize_request(this.props.id).send({
-      from: accounts[0],
-    });
+    this.setState({ loading2: true, errorMessage: "" });
+    
+    try{
+      const accounts = await web3.eth.getAccounts();
+      await instance.methods.finalize_request(this.props.id).send({
+        from: accounts[0],
+      });
+    } catch (err) {
+        console.log(err);
+    }
+    this.setState({ loading2: false });
   }
   
 
@@ -42,14 +60,14 @@ class Requestrow extends Component {
         </Cell> 
         <Cell>
           {request.status ? null : (
-            <Button color="green" basic  onClick={this.onApprove}>
+            <Button color="green" basic onClick={this.onApprove} loading={this.state.loading1}>
               Approve
             </Button>
           )}
         </Cell>
         <Cell>
           {request.status ? null : (
-            <Button color="teal" basic onClick={this.onFinalize}>
+            <Button color="teal" basic onClick={this.onFinalize} loading={this.state.loading2}>
               Finalize
             </Button>
           )}
@@ -58,4 +76,5 @@ class Requestrow extends Component {
     );
   }
 }
+
 export default Requestrow;

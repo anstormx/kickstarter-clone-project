@@ -23,7 +23,9 @@ class CampaignIndex extends Component {
                         <a>View campaign</a>
                     </Link> 
                 ),
-                fluid: true //makes the cards stretch to the entire width of its container
+                fluid: true, //makes the cards stretch to the entire width of its container
+                raised: true, // Add a shadow to the Card
+                color: "teal" // Choose a color
                 };
             }
         );

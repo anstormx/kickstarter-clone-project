@@ -12,7 +12,7 @@ class Requests extends Component {
         const requestcount = await instance.methods.getrequestscount().call();
         const contributorscount = await instance.methods.contributorscount().call();
         const requests = await Promise.all(
-            Array(parseInt(requestcount))
+            Array(Number(requestcount))
               .fill()
               .map((element, index) => {
                 return instance.methods.requests(index).call();

@@ -18,7 +18,6 @@ class Contributeform extends Component {
         const instance = campaign(this.props.address);
 
         try {
-        //   const Amount = web3.utils.fro
           const accounts = await web3.eth.getAccounts();
 
           await instance.methods
