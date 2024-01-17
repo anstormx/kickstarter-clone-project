@@ -5,6 +5,8 @@ import 'semantic-ui-css/semantic.min.css'; // Import Semantic UI CSS
 import Layout from "../../../components/Layout";
 import { Router, Link } from '../../../routes'; 
 import campaign from "../../../ethereum/campaign";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 class RequestNew extends Component {
@@ -12,9 +14,12 @@ class RequestNew extends Component {
         description:'',
         amount:'',
         recepient:'',
-        errormessage: '',
         loading: false
     }
+
+    notification = (message, type) => {
+        toast[type](message);
+    };
 
     static async getInitialProps(props) { 
         const { address } = props.query;
@@ -35,7 +40,7 @@ class RequestNew extends Component {
             
             Router.pushRoute(`/campaigns/${this.props.address}/requests`); //redirects user to the root page
         }catch(err){
-            this.setState({errormessage: err.message});
+            this.notification(`Error Creating Campaign, ${err.message}`, 'error');
         }
         
         this.setState({loading: false});
@@ -47,8 +52,7 @@ class RequestNew extends Component {
             <Layout> 
                 <div>
                     <h3>Add Request</h3>
-                    <Form onSubmit={this.onSubmit} error={!!this.state.errormessage}>
-                        
+                    <Form onSubmit={this.onSubmit} error={!!this.state.errormessage}>                        
                         <Form.Field>
                             <label>Description</label>
                             <Input                     
@@ -57,7 +61,6 @@ class RequestNew extends Component {
                                 onChange={event => this.setState({description: event.target.value})}
                             />
                         </Form.Field>
-
                         <Form.Field>
                             <label>Amount in ether</label>
                             <Input 
@@ -68,7 +71,6 @@ class RequestNew extends Component {
                                 onChange={event => this.setState({amount: event.target.value})}
                             />
                         </Form.Field>
-
                         <Form.Field>
                             <label>Recepient</label>
                             <Input 
@@ -76,14 +78,7 @@ class RequestNew extends Component {
                                 value={this.state.recepient}
                                 onChange={event => this.setState({recepient: event.target.value})}
                             />
-                        </Form.Field>
-                        
-                        <Message 
-                            error //makes it look redish 
-                            header="Oops!" 
-                            content={this.state.errormessage} 
-                        />
-
+                        </Form.Field>                                    
                         <Button 
                         floated="right" //moves button to right side
                         content="Submit"
@@ -92,7 +87,7 @@ class RequestNew extends Component {
                         primary //visual indication to show the button is associated with the primary action or focus of a particular context
                         />                       
                     </Form>
-            
+                    <ToastContainer />
                 </div>
             </Layout> //code inside gets passed as children to Layout component
         )

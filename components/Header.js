@@ -5,10 +5,14 @@ import { Link } from '../routes'; //allows us to create link tags for navigation
 
 const Header = () => {
     return (
-        <Menu style = {{ marginTop : "30px", backgroundColor: "green", borderRadius: "15px", border: "none" }}>
+        <Menu style = {{ 
+            marginTop : "30px", 
+            backgroundColor: "#1DB954", 
+            borderRadius: "13px" 
+            }}>
             <Link route='/'>
                         <a className="item" style={{ color: "#fff", fontSize: "1.5rem" }}>
-                         <h2>CrowdCoin</h2>
+                         <h2>FundHash</h2>
                         </a>
             </Link>
             <Menu.Menu position="right">

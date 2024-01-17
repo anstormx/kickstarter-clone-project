@@ -43,14 +43,14 @@ class Requests extends Component {
             <Layout>
                     <Grid>
                         <Grid.Row>
-                            <Grid.Column width={14} style={{marginTop:`20px`}}>
+                            <Grid.Column width={13} style={{marginTop:`20px`}}>
                                 <h3>Pending Requests</h3>
                             </Grid.Column>
-                            <Grid.Column width={2}>
+                            <Grid.Column width={3}>
                                 <Link route={`/campaigns/${this.props.address}/requests/new`}>
                                     <a>
-                                        <Button primary>
-                                            Add Requests
+                                        <Button primary >
+                                        🚀 Add Requests
                                         </Button>
                                     </a>
                                 </Link>
